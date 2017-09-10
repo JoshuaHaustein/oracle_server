@@ -4,7 +4,7 @@
 ```
 git clone <repo>
 cd <repo-dir>
-virtualenv -p python3.5 venv
+virtualenv -p python3.5 venv # or newer
 source venv/bin/activate
 ```
 
