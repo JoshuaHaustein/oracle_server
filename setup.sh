@@ -20,12 +20,12 @@ then
     mkfifo $FEASIBILITY_RESPONSE_PIPE_PATH
 fi
 
-export FEASIBILITY_SAMPLE_REQUEST_PIPE_PATH=/tmp/feasibility_sample_request_pipe
+export FEASIBILITY_SAMPLE_REQUEST_PIPE_PATH=/tmp/feasibility_request_pipe
 if ! [[ -p $FEASIBILITY_SAMPLE_REQUEST_PIPE_PATH ]]
 then
     mkfifo $FEASIBILITY_SAMPLE_REQUEST_PIPE_PATH
 fi
-export FEASIBILITY_SAMPLE_RESPONSE_PIPE_PATH=/tmp/feasibility_sample_response_pipe
+export FEASIBILITY_SAMPLE_RESPONSE_PIPE_PATH=/tmp/feasibility_response_pipe
 if ! [[ -p $FEASIBILITY_SAMPLE_RESPONSE_PIPE_PATH ]]
 then
     mkfifo $FEASIBILITY_SAMPLE_RESPONSE_PIPE_PATH
@@ -40,4 +40,15 @@ export PUSHABILITY_RESPONSE_PIPE_PATH=/tmp/pushability_response_pipe
 if ! [[ -p $PUSHABILITY_RESPONSE_PIPE_PATH ]]
 then
     mkfifo $PUSHABILITY_RESPONSE_PIPE_PATH
+fi
+
+export PUSHABILITY_PROJECTION_REQUEST_PIPE_PATH=/tmp/pushability_request_pipe
+if ! [[ -p $PUSHABILITY_PROJECTION_REQUEST_PIPE_PATH ]]
+then
+    mkfifo $PUSHABILITY_PROJECTION_REQUEST_PIPE_PATH
+fi
+export PUSHABILITY_PROJECTION_RESPONSE_PIPE_PATH=/tmp/pushability_response_pipe
+if ! [[ -p $PUSHABILITY_PROJECTION_RESPONSE_PIPE_PATH ]]
+then
+    mkfifo $PUSHABILITY_PROJECTION_RESPONSE_PIPE_PATH
 fi

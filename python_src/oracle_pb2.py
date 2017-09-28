@@ -18,7 +18,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='oracle.proto',
   package='oracle_communication',
-  serialized_pb=_b('\n\x0coracle.proto\x12\x14oracle_communication\"\xd2\x01\n\rActionRequest\x12\x18\n\x10robot_relative_x\x18\x01 \x02(\x02\x12\x18\n\x10robot_relative_y\x18\x02 \x02(\x02\x12\x15\n\rrobot_radians\x18\x03 \x02(\x02\x12\x16\n\x0eobject_radians\x18\x04 \x02(\x02\x12\x1f\n\x17object_relative_x_prime\x18\x05 \x02(\x02\x12\x1f\n\x17object_relative_y_prime\x18\x06 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\x07 \x02(\x02\"?\n\x0e\x41\x63tionResponse\x12\n\n\x02\x64x\x18\x01 \x02(\x02\x12\n\n\x02\x64y\x18\x02 \x02(\x02\x12\n\n\x02\x64r\x18\x03 \x02(\x02\x12\t\n\x01t\x18\x04 \x02(\x02\"\xd7\x01\n\x12\x46\x65\x61sibilityRequest\x12\x18\n\x10robot_relative_x\x18\x01 \x02(\x02\x12\x18\n\x10robot_relative_y\x18\x02 \x02(\x02\x12\x15\n\rrobot_radians\x18\x03 \x02(\x02\x12\x16\n\x0eobject_radians\x18\x04 \x02(\x02\x12\x1f\n\x17object_relative_x_prime\x18\x05 \x02(\x02\x12\x1f\n\x17object_relative_y_prime\x18\x06 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\x07 \x02(\x02\"*\n\x13\x46\x65\x61sibilityResponse\x12\x13\n\x0bmahalanobis\x18\x01 \x02(\x02\"\x92\x01\n\x18\x46\x65\x61sibilitySampleRequest\x12\x16\n\x0eobject_radians\x18\x01 \x02(\x02\x12\x1f\n\x17object_relative_x_prime\x18\x02 \x02(\x02\x12\x1f\n\x17object_relative_y_prime\x18\x03 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\x04 \x02(\x02\"f\n\x19\x46\x65\x61sibilitySampleResponse\x12\x18\n\x10robot_relative_x\x18\x01 \x02(\x02\x12\x18\n\x10robot_relative_y\x18\x02 \x02(\x02\x12\x15\n\rrobot_radians\x18\x03 \x02(\x02\"\x8c\x01\n\x12PushabilityRequest\x12\x16\n\x0eobject_radians\x18\x04 \x02(\x02\x12\x1f\n\x17object_relative_x_prime\x18\x05 \x02(\x02\x12\x1f\n\x17object_relative_y_prime\x18\x06 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\x07 \x02(\x02\"*\n\x13PushabilityResponse\x12\x13\n\x0bmahalanobis\x18\x01 \x02(\x02')
+  serialized_pb=_b('\n\x0coracle.proto\x12\x14oracle_communication\"\xd0\x02\n\rActionRequest\x12\x0f\n\x07robot_x\x18\x01 \x02(\x02\x12\x0f\n\x07robot_y\x18\x02 \x02(\x02\x12\x15\n\rrobot_radians\x18\x03 \x02(\x02\x12\x10\n\x08object_x\x18\x04 \x02(\x02\x12\x10\n\x08object_y\x18\x05 \x02(\x02\x12\x16\n\x0eobject_radians\x18\x06 \x02(\x02\x12\x16\n\x0eobject_x_prime\x18\x07 \x02(\x02\x12\x16\n\x0eobject_y_prime\x18\x08 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\t \x02(\x02\x12\x13\n\x0bobject_mass\x18\n \x02(\x02\x12!\n\x19object_rotational_inertia\x18\x0b \x02(\x02\x12\x17\n\x0fobject_friction\x18\x0c \x02(\x02\x12\x14\n\x0cobject_width\x18\r \x02(\x02\x12\x15\n\robject_height\x18\x0e \x02(\x02\"?\n\x0e\x41\x63tionResponse\x12\n\n\x02\x64x\x18\x01 \x02(\x02\x12\n\n\x02\x64y\x18\x02 \x02(\x02\x12\n\n\x02\x64r\x18\x03 \x02(\x02\x12\t\n\x01t\x18\x04 \x02(\x02\"\xd5\x02\n\x12\x46\x65\x61sibilityRequest\x12\x0f\n\x07robot_x\x18\x01 \x02(\x02\x12\x0f\n\x07robot_y\x18\x02 \x02(\x02\x12\x15\n\rrobot_radians\x18\x03 \x02(\x02\x12\x10\n\x08object_x\x18\x04 \x02(\x02\x12\x10\n\x08object_y\x18\x05 \x02(\x02\x12\x16\n\x0eobject_radians\x18\x06 \x02(\x02\x12\x16\n\x0eobject_x_prime\x18\x07 \x02(\x02\x12\x16\n\x0eobject_y_prime\x18\x08 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\t \x02(\x02\x12\x13\n\x0bobject_mass\x18\n \x02(\x02\x12!\n\x19object_rotational_inertia\x18\x0b \x02(\x02\x12\x17\n\x0fobject_friction\x18\x0c \x02(\x02\x12\x14\n\x0cobject_width\x18\r \x02(\x02\x12\x15\n\robject_height\x18\x0e \x02(\x02\"c\n\x13\x46\x65\x61sibilityResponse\x12\x13\n\x0bmahalanobis\x18\x01 \x02(\x02\x12\x0f\n\x07robot_x\x18\x02 \x02(\x02\x12\x0f\n\x07robot_y\x18\x03 \x02(\x02\x12\x15\n\rrobot_radians\x18\x04 \x02(\x02\"\xae\x02\n\x12PushabilityRequest\x12\x10\n\x08num_stds\x18\x01 \x02(\x02\x12\x10\n\x08object_x\x18\x04 \x02(\x02\x12\x10\n\x08object_y\x18\x05 \x02(\x02\x12\x16\n\x0eobject_radians\x18\x06 \x02(\x02\x12\x16\n\x0eobject_x_prime\x18\x07 \x02(\x02\x12\x16\n\x0eobject_y_prime\x18\x08 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\t \x02(\x02\x12\x13\n\x0bobject_mass\x18\n \x02(\x02\x12!\n\x19object_rotational_inertia\x18\x0b \x02(\x02\x12\x17\n\x0fobject_friction\x18\x0c \x02(\x02\x12\x14\n\x0cobject_width\x18\r \x02(\x02\x12\x15\n\robject_height\x18\x0e \x02(\x02\"\x84\x01\n\x13PushabilityResponse\x12\x13\n\x0bmahalanobis\x18\x01 \x02(\x02\x12\x1a\n\x12projected_object_x\x18\x04 \x02(\x02\x12\x1a\n\x12projected_object_y\x18\x05 \x02(\x02\x12 \n\x18projected_object_radians\x18\x06 \x02(\x02')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -33,14 +33,14 @@ _ACTIONREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='robot_relative_x', full_name='oracle_communication.ActionRequest.robot_relative_x', index=0,
+      name='robot_x', full_name='oracle_communication.ActionRequest.robot_x', index=0,
       number=1, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='robot_relative_y', full_name='oracle_communication.ActionRequest.robot_relative_y', index=1,
+      name='robot_y', full_name='oracle_communication.ActionRequest.robot_y', index=1,
       number=2, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -54,29 +54,78 @@ _ACTIONREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_radians', full_name='oracle_communication.ActionRequest.object_radians', index=3,
+      name='object_x', full_name='oracle_communication.ActionRequest.object_x', index=3,
       number=4, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_relative_x_prime', full_name='oracle_communication.ActionRequest.object_relative_x_prime', index=4,
+      name='object_y', full_name='oracle_communication.ActionRequest.object_y', index=4,
       number=5, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_relative_y_prime', full_name='oracle_communication.ActionRequest.object_relative_y_prime', index=5,
+      name='object_radians', full_name='oracle_communication.ActionRequest.object_radians', index=5,
       number=6, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_radians_prime', full_name='oracle_communication.ActionRequest.object_radians_prime', index=6,
+      name='object_x_prime', full_name='oracle_communication.ActionRequest.object_x_prime', index=6,
       number=7, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_y_prime', full_name='oracle_communication.ActionRequest.object_y_prime', index=7,
+      number=8, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_radians_prime', full_name='oracle_communication.ActionRequest.object_radians_prime', index=8,
+      number=9, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_mass', full_name='oracle_communication.ActionRequest.object_mass', index=9,
+      number=10, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_rotational_inertia', full_name='oracle_communication.ActionRequest.object_rotational_inertia', index=10,
+      number=11, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_friction', full_name='oracle_communication.ActionRequest.object_friction', index=11,
+      number=12, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_width', full_name='oracle_communication.ActionRequest.object_width', index=12,
+      number=13, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_height', full_name='oracle_communication.ActionRequest.object_height', index=13,
+      number=14, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -93,7 +142,7 @@ _ACTIONREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=39,
-  serialized_end=249,
+  serialized_end=375,
 )
 
 
@@ -143,8 +192,8 @@ _ACTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=251,
-  serialized_end=314,
+  serialized_start=377,
+  serialized_end=440,
 )
 
 
@@ -156,14 +205,14 @@ _FEASIBILITYREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='robot_relative_x', full_name='oracle_communication.FeasibilityRequest.robot_relative_x', index=0,
+      name='robot_x', full_name='oracle_communication.FeasibilityRequest.robot_x', index=0,
       number=1, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='robot_relative_y', full_name='oracle_communication.FeasibilityRequest.robot_relative_y', index=1,
+      name='robot_y', full_name='oracle_communication.FeasibilityRequest.robot_y', index=1,
       number=2, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -177,29 +226,78 @@ _FEASIBILITYREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_radians', full_name='oracle_communication.FeasibilityRequest.object_radians', index=3,
+      name='object_x', full_name='oracle_communication.FeasibilityRequest.object_x', index=3,
       number=4, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_relative_x_prime', full_name='oracle_communication.FeasibilityRequest.object_relative_x_prime', index=4,
+      name='object_y', full_name='oracle_communication.FeasibilityRequest.object_y', index=4,
       number=5, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_relative_y_prime', full_name='oracle_communication.FeasibilityRequest.object_relative_y_prime', index=5,
+      name='object_radians', full_name='oracle_communication.FeasibilityRequest.object_radians', index=5,
       number=6, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_radians_prime', full_name='oracle_communication.FeasibilityRequest.object_radians_prime', index=6,
+      name='object_x_prime', full_name='oracle_communication.FeasibilityRequest.object_x_prime', index=6,
       number=7, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_y_prime', full_name='oracle_communication.FeasibilityRequest.object_y_prime', index=7,
+      number=8, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_radians_prime', full_name='oracle_communication.FeasibilityRequest.object_radians_prime', index=8,
+      number=9, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_mass', full_name='oracle_communication.FeasibilityRequest.object_mass', index=9,
+      number=10, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_rotational_inertia', full_name='oracle_communication.FeasibilityRequest.object_rotational_inertia', index=10,
+      number=11, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_friction', full_name='oracle_communication.FeasibilityRequest.object_friction', index=11,
+      number=12, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_width', full_name='oracle_communication.FeasibilityRequest.object_width', index=12,
+      number=13, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_height', full_name='oracle_communication.FeasibilityRequest.object_height', index=13,
+      number=14, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -215,8 +313,8 @@ _FEASIBILITYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=317,
-  serialized_end=532,
+  serialized_start=443,
+  serialized_end=784,
 )
 
 
@@ -234,52 +332,22 @@ _FEASIBILITYRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=534,
-  serialized_end=576,
-)
-
-
-_FEASIBILITYSAMPLEREQUEST = _descriptor.Descriptor(
-  name='FeasibilitySampleRequest',
-  full_name='oracle_communication.FeasibilitySampleRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
     _descriptor.FieldDescriptor(
-      name='object_radians', full_name='oracle_communication.FeasibilitySampleRequest.object_radians', index=0,
-      number=1, type=2, cpp_type=6, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='object_relative_x_prime', full_name='oracle_communication.FeasibilitySampleRequest.object_relative_x_prime', index=1,
+      name='robot_x', full_name='oracle_communication.FeasibilityResponse.robot_x', index=1,
       number=2, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_relative_y_prime', full_name='oracle_communication.FeasibilitySampleRequest.object_relative_y_prime', index=2,
+      name='robot_y', full_name='oracle_communication.FeasibilityResponse.robot_y', index=2,
       number=3, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_radians_prime', full_name='oracle_communication.FeasibilitySampleRequest.object_radians_prime', index=3,
+      name='robot_radians', full_name='oracle_communication.FeasibilityResponse.robot_radians', index=3,
       number=4, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -296,52 +364,8 @@ _FEASIBILITYSAMPLEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=579,
-  serialized_end=725,
-)
-
-
-_FEASIBILITYSAMPLERESPONSE = _descriptor.Descriptor(
-  name='FeasibilitySampleResponse',
-  full_name='oracle_communication.FeasibilitySampleResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='robot_relative_x', full_name='oracle_communication.FeasibilitySampleResponse.robot_relative_x', index=0,
-      number=1, type=2, cpp_type=6, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='robot_relative_y', full_name='oracle_communication.FeasibilitySampleResponse.robot_relative_y', index=1,
-      number=2, type=2, cpp_type=6, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='robot_radians', full_name='oracle_communication.FeasibilitySampleResponse.robot_radians', index=2,
-      number=3, type=2, cpp_type=6, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=727,
-  serialized_end=829,
+  serialized_start=786,
+  serialized_end=885,
 )
 
 
@@ -353,29 +377,85 @@ _PUSHABILITYREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='object_radians', full_name='oracle_communication.PushabilityRequest.object_radians', index=0,
+      name='num_stds', full_name='oracle_communication.PushabilityRequest.num_stds', index=0,
+      number=1, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_x', full_name='oracle_communication.PushabilityRequest.object_x', index=1,
       number=4, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_relative_x_prime', full_name='oracle_communication.PushabilityRequest.object_relative_x_prime', index=1,
+      name='object_y', full_name='oracle_communication.PushabilityRequest.object_y', index=2,
       number=5, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_relative_y_prime', full_name='oracle_communication.PushabilityRequest.object_relative_y_prime', index=2,
+      name='object_radians', full_name='oracle_communication.PushabilityRequest.object_radians', index=3,
       number=6, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='object_radians_prime', full_name='oracle_communication.PushabilityRequest.object_radians_prime', index=3,
+      name='object_x_prime', full_name='oracle_communication.PushabilityRequest.object_x_prime', index=4,
       number=7, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_y_prime', full_name='oracle_communication.PushabilityRequest.object_y_prime', index=5,
+      number=8, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_radians_prime', full_name='oracle_communication.PushabilityRequest.object_radians_prime', index=6,
+      number=9, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_mass', full_name='oracle_communication.PushabilityRequest.object_mass', index=7,
+      number=10, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_rotational_inertia', full_name='oracle_communication.PushabilityRequest.object_rotational_inertia', index=8,
+      number=11, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_friction', full_name='oracle_communication.PushabilityRequest.object_friction', index=9,
+      number=12, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_width', full_name='oracle_communication.PushabilityRequest.object_width', index=10,
+      number=13, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='object_height', full_name='oracle_communication.PushabilityRequest.object_height', index=11,
+      number=14, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -391,8 +471,8 @@ _PUSHABILITYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=832,
-  serialized_end=972,
+  serialized_start=888,
+  serialized_end=1190,
 )
 
 
@@ -410,6 +490,27 @@ _PUSHABILITYRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='projected_object_x', full_name='oracle_communication.PushabilityResponse.projected_object_x', index=1,
+      number=4, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='projected_object_y', full_name='oracle_communication.PushabilityResponse.projected_object_y', index=2,
+      number=5, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='projected_object_radians', full_name='oracle_communication.PushabilityResponse.projected_object_radians', index=3,
+      number=6, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -421,16 +522,14 @@ _PUSHABILITYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=974,
-  serialized_end=1016,
+  serialized_start=1193,
+  serialized_end=1325,
 )
 
 DESCRIPTOR.message_types_by_name['ActionRequest'] = _ACTIONREQUEST
 DESCRIPTOR.message_types_by_name['ActionResponse'] = _ACTIONRESPONSE
 DESCRIPTOR.message_types_by_name['FeasibilityRequest'] = _FEASIBILITYREQUEST
 DESCRIPTOR.message_types_by_name['FeasibilityResponse'] = _FEASIBILITYRESPONSE
-DESCRIPTOR.message_types_by_name['FeasibilitySampleRequest'] = _FEASIBILITYSAMPLEREQUEST
-DESCRIPTOR.message_types_by_name['FeasibilitySampleResponse'] = _FEASIBILITYSAMPLERESPONSE
 DESCRIPTOR.message_types_by_name['PushabilityRequest'] = _PUSHABILITYREQUEST
 DESCRIPTOR.message_types_by_name['PushabilityResponse'] = _PUSHABILITYRESPONSE
 
@@ -461,20 +560,6 @@ FeasibilityResponse = _reflection.GeneratedProtocolMessageType('FeasibilityRespo
   # @@protoc_insertion_point(class_scope:oracle_communication.FeasibilityResponse)
   ))
 _sym_db.RegisterMessage(FeasibilityResponse)
-
-FeasibilitySampleRequest = _reflection.GeneratedProtocolMessageType('FeasibilitySampleRequest', (_message.Message,), dict(
-  DESCRIPTOR = _FEASIBILITYSAMPLEREQUEST,
-  __module__ = 'oracle_pb2'
-  # @@protoc_insertion_point(class_scope:oracle_communication.FeasibilitySampleRequest)
-  ))
-_sym_db.RegisterMessage(FeasibilitySampleRequest)
-
-FeasibilitySampleResponse = _reflection.GeneratedProtocolMessageType('FeasibilitySampleResponse', (_message.Message,), dict(
-  DESCRIPTOR = _FEASIBILITYSAMPLERESPONSE,
-  __module__ = 'oracle_pb2'
-  # @@protoc_insertion_point(class_scope:oracle_communication.FeasibilitySampleResponse)
-  ))
-_sym_db.RegisterMessage(FeasibilitySampleResponse)
 
 PushabilityRequest = _reflection.GeneratedProtocolMessageType('PushabilityRequest', (_message.Message,), dict(
   DESCRIPTOR = _PUSHABILITYREQUEST,
