@@ -220,13 +220,32 @@ class Feasibility:
         return response
 
     def mahalanobis(self, request):
-        XY = features(request)
-        X = self.norm(XY[:, 4:])
-        µ = self.mean(X).data.numpy().flatten()
-        σ = self.std(X).data.numpy().flatten()
-        y = self.y_norm(XY[:, :4]).data.numpy().flatten()
+
+
+
+        robot_pose = np.array([[request.robot_x, request.robot_y, request.robot_radians]]).T
+        object_pose = np.array([[request.object_x, request.object_y, request.object_radians]]).T
+        object_relative_robot = robot_centric(robot_pose, object_pose, translate=True).T
+        x = np.concatenate(
+            [
+                robot_centric(robot_pose, object_pose, translate=True).T,
+                [[request.object_width, request.object_height]]
+            ],
+            axis=1
+        )
+        goal_pose = np.array([
+            [request.object_x_prime, request.object_y_prime, request.object_radians_prime]
+        ]).T
+        goal_relative_robot = robot_centric(robot_pose, goal_pose, translate=True).T
+        desired_object_change = goal_relative_robot - object_relative_robot
+        X = Variable(torch.FloatTensor(x))
+        G = Variable(torch.FloatTensor(desired_object_change))
+
+        mahalanobis = self.expected_distance(X, G).data[0]
+
         response = FeasibilityResponse()
-        response.mahalanobis = np.linalg.norm((y - µ) / σ)
+        # scale by 0.05 to match usual mahalanobis scale -> accept expected distance < 1.0
+        response.mahalanobis = mahalanobis * 0.05
         response.robot_x = 0.0          # Ignored
         response.robot_y = 0.0          #  -"-
         response.robot_radians = 0.0    #  -"-
@@ -300,16 +319,16 @@ if __name__ == '__main__':
     from oracle_pb2 import FeasibilityRequest
     oracle = Feasibility()
     request = FeasibilityRequest()
-    request.robot_x = 1.25
-    request.robot_y = 0.60
+    request.robot_x = 0.00
+    request.robot_y = 0.00
     request.robot_radians = np.pi / 2.0
 
-    request.object_x = 1.25
+    request.object_x = 0.2
     request.object_y = 0.0
     request.object_radians = 0.0
 
-    request.object_x_prime = 1.25
-    request.object_y_prime = 0.1
+    request.object_x_prime = 0.3
+    request.object_y_prime = 0.0
     request.object_radians_prime = 0.0
 
     request.object_mass = 0.073
@@ -321,6 +340,6 @@ if __name__ == '__main__':
     from datetime import datetime
     for _ in range(1):
         start = datetime.now()
-        print(oracle.sample(request))
+        print(oracle.mahalanobis(request).mahalanobis < 0.05)
         end = datetime.now()
         #print(end - start)

@@ -73,9 +73,7 @@ class ExpectedDistanceProduction(torch.nn.Module):
 
     def forward(self, x, g):
         """
-        Variables should all be normalized!
         Goal is relative object! G_rel = (G - X)
-        Goal is normalized with same as Y = (X' - X)
         """
         x = self.x_norm(x)
         g = self.g_norm(g)
