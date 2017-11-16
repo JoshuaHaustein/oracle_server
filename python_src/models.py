@@ -208,8 +208,8 @@ class Feasibility:
         dy = request.object_y_prime - request.object_y
         dθ = 0.0
         from feasibility_mcmc import mcmc
-        for i, (rx, ry, rθ) in enumerate(mcmc(request.object_radians, dx, dy, dθ, request.object_width, request.object_height, self.expected_distance)):
-            if i > 10:
+        for i, (rx, ry, rθ, u) in enumerate(mcmc(request.object_radians, dx, dy, dθ, request.object_width, request.object_height, self.expected_distance)):
+            if i > 2:
                 break
 
         response = FeasibilityResponse()
@@ -220,9 +220,6 @@ class Feasibility:
         return response
 
     def mahalanobis(self, request):
-
-
-
         robot_pose = np.array([[request.robot_x, request.robot_y, request.robot_radians]]).T
         object_pose = np.array([[request.object_x, request.object_y, request.object_radians]]).T
         object_relative_robot = robot_centric(robot_pose, object_pose, translate=True).T
@@ -241,11 +238,10 @@ class Feasibility:
         X = Variable(torch.FloatTensor(x))
         G = Variable(torch.FloatTensor(desired_object_change))
 
-        mahalanobis = self.expected_distance(X, G).data[0]
+        mahalanobis = self.expected_distance(X, G).data[0] / 0.01
 
         response = FeasibilityResponse()
-        # scale by 0.05 to match usual mahalanobis scale -> accept expected distance < 1.0
-        response.mahalanobis = mahalanobis * 0.05
+        response.mahalanobis = mahalanobis
         response.robot_x = 0.0          # Ignored
         response.robot_y = 0.0          #  -"-
         response.robot_radians = 0.0    #  -"-
@@ -321,7 +317,7 @@ if __name__ == '__main__':
     request = FeasibilityRequest()
     request.robot_x = 0.00
     request.robot_y = 0.00
-    request.robot_radians = np.pi / 2.0
+    request.robot_radians = 0.0
 
     request.object_x = 0.2
     request.object_y = 0.0
@@ -340,6 +336,6 @@ if __name__ == '__main__':
     from datetime import datetime
     for _ in range(1):
         start = datetime.now()
-        print(oracle.mahalanobis(request).mahalanobis < 0.05)
+        print(oracle.mahalanobis(request))
         end = datetime.now()
         #print(end - start)

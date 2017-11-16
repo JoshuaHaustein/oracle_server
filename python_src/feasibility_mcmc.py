@@ -101,9 +101,6 @@ def _energy(θ_obj, θ_rob_prop, x_rob_prop, y_rob_prop, dx, dy, dθ, width, hei
     return U.cpu().data[0]
 
 
-# Just give change of state, (and object width, height)
-# Then sample different poses of robot (as markov chain) and rotate/translate object accordingly
-# Run k times and return last sample
 def mcmc(θ_obj, dx, dy, dθ, width, height, expect_distance):
     # select initial robot position relative object
     θ_rob = np.arctan2(dy, dx) - np.pi / 2.0
@@ -115,15 +112,19 @@ def mcmc(θ_obj, dx, dy, dθ, width, height, expect_distance):
     while True:
         θ_rob_prop = θ_rob + np.random.randn() * 0.5
         θ_rob_prop = np.arctan2(np.sin(θ_rob_prop), np.cos(θ_rob_prop))
-        x_rob_prop = x_rob + np.random.randn() * 0.1
-        y_rob_prop = y_rob + np.random.randn() * 0.1
+        x_rob_prop = x_rob + np.random.randn() * 0.05
+        y_rob_prop = y_rob + np.random.randn() * 0.05
+        # The reward function is not defined for robot positions further away
+        if np.linalg.norm([x_rob_prop, y_rob_prop]) > 0.4:
+            continue
 
         U_ = _energy(θ_obj, θ_rob_prop, x_rob_prop, y_rob_prop, dx, dy, dθ, width, height, expect_distance)
-        T = 1e-2
+        T = 5e-3
         p = min(1, np.exp((U - U_) / T))
         if np.random.rand() < p:
             θ_rob = θ_rob_prop
             x_rob = x_rob_prop
             y_rob = y_rob_prop
-            yield x_rob, y_rob, θ_rob
+            U = U_
+            yield x_rob, y_rob, θ_rob, U_
 
