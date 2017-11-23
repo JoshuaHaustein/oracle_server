@@ -103,9 +103,9 @@ def _energy(θ_obj, θ_rob_prop, x_rob_prop, y_rob_prop, dx, dy, dθ, width, hei
 
 def mcmc(θ_obj, dx, dy, dθ, width, height, expect_distance):
     # select initial robot position relative object
-    θ_rob = np.arctan2(dy, dx) - np.pi / 2.0
-    x_rob = -0.25 * np.cos(θ_rob + np.pi / 2.0)
-    y_rob = -0.25 * np.sin(θ_rob + np.pi / 2.0)
+    θ_rob = np.arctan2(dy, dx) + np.pi / 2.0
+    x_rob = -0.25 * np.cos(θ_rob - np.pi / 2.0)
+    y_rob = -0.25 * np.sin(θ_rob - np.pi / 2.0)
 
     U = _energy(θ_obj, θ_rob, x_rob, y_rob, dx, dy, dθ, width, height, expect_distance)
 

@@ -238,7 +238,7 @@ class Feasibility:
         X = Variable(torch.FloatTensor(x))
         G = Variable(torch.FloatTensor(desired_object_change))
 
-        mahalanobis = self.expected_distance(X, G).data[0] / 0.01
+        mahalanobis = self.expected_distance(X, G).data[0] / 0.02
 
         response = FeasibilityResponse()
         response.mahalanobis = mahalanobis
