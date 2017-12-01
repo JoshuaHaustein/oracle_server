@@ -11,6 +11,7 @@ from oracle_pb2 import (
     PushabilityResponse
 )
 from policy import ProductionPolicy
+from utils import Normalization, NormalizationInverse
 
 
 def load_models(path):
@@ -77,26 +78,6 @@ def features(ar):
     res_np = np.array([res])
     return Variable(torch.FloatTensor(res_np))
 
-
-
-class Normalization(torch.nn.Module):
-    def __init__(self, n_features):
-        super(Normalization, self).__init__()
-        self.register_buffer('mean', torch.zeros(n_features))
-        self.register_buffer('std', torch.ones(n_features))
-
-    def forward(self, x):
-        return (x - Variable(self.mean)) / Variable(self.std)
-
-
-class NormalizationInverse(torch.nn.Module):
-    def __init__(self, n_features):
-        super(NormalizationInverse, self).__init__()
-        self.register_buffer('mean', torch.zeros(n_features))
-        self.register_buffer('std', torch.zeros(n_features))
-
-    def forward(self, x):
-        return x * Variable(self.std) + Variable(self.mean)
 
 
 class Residual(torch.nn.Module):
@@ -199,11 +180,54 @@ class Feasibility:
             self.expected_distance.load_state_dict(pickle.load(f))
         self.expected_distance.eval()
 
+        from feasibility_gan import GeneratorProduction
+        self.generator = GeneratorProduction()
+        with open('saved_models/generator_production.pkl', 'rb') as f:
+            self.generator.load_state_dict(pickle.load(f))
+
         # For mahalanobis, the queried robot state needs normalizing
         self.y_norm = Normalization(4)
         self.y_norm.load_state_dict(self.norm_inv.state_dict())
 
+    def sample_old(self, request):
+        dx = request.object_x_prime - request.object_x
+        dy = request.object_y_prime - request.object_y
+        dθ = 0.0
+        from feasibility_mcmc import mcmc
+        for i, (rx, ry, rθ, u) in enumerate(mcmc(request.object_radians, dx, dy, dθ, request.object_width, request.object_height, self.expected_distance)):
+            if i > 2:
+                break
+
+        response = FeasibilityResponse()
+        response.mahalanobis = -1.0 # Not valid here
+        response.robot_x = request.object_x + rx
+        response.robot_y = request.object_y + ry
+        response.robot_radians = rθ
+        return response
+
     def sample(self, request):
+        dx = request.object_x_prime - request.object_x
+        dy = request.object_y_prime - request.object_y
+        dθ = request.object_radians_prime - request.object_radians
+        obj = Variable(torch.FloatTensor([[request.object_width,
+                                           request.object_height,
+                                           request.object_x,
+                                           request.object_y,
+                                           request.object_radians]]))
+        obj_delta = Variable(torch.FloatTensor([[request.object_x_prime - request.object_x,
+                                                 request.object_y_prime - request.object_y,
+                                                 request.object_radians_prime - request.object_radians]]))
+
+        x, y, θ = self.generator(obj, obj_delta).data.numpy().flatten()
+
+        response = FeasibilityResponse()
+        response.mahalanobis = -1.0 # Not valid here
+        response.robot_x = x
+        response.robot_y = y
+        response.robot_radians = θ
+        return response
+
+    def sample_old(self, request):
         dx = request.object_x_prime - request.object_x
         dy = request.object_y_prime - request.object_y
         dθ = 0.0
@@ -330,12 +354,13 @@ if __name__ == '__main__':
     request.object_mass = 0.073
     request.object_rotational_inertia = 0.000064
     request.object_friction = 0.086
-    request.object_width = 0.1
-    request.object_height = 0.1
+    request.object_width = 0.13
+    request.object_height = 0.13
 
     from datetime import datetime
-    for _ in range(1):
-        start = datetime.now()
-        print(oracle.mahalanobis(request))
-        end = datetime.now()
-        #print(end - start)
+    n_steps = 100
+    mcmc_time = 0.0
+    gan_time = 0.0
+    for step in range(n_steps + 1):
+        print(oracle.sample_old(request))
+        print(oracle.sample(request))
