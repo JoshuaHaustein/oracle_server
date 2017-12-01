@@ -146,7 +146,10 @@ class Pushability:
         µ = self.mean(X)
         σ = self.std(X)
         mahalanobis = torch.norm((µ - Y) / σ)
-        y = self.norm_inv(µ + (Y - µ) / mahalanobis * n_stds).data
+        if mahalanobis.data[0] < 1.0:
+            y = self.norm_inv(µ + (Y - µ)).data
+        else:
+            y = self.norm_inv(µ + (Y - µ) / mahalanobis * n_stds).data
 
         response = PushabilityResponse()
         # This is not relevant now
@@ -262,7 +265,7 @@ class Feasibility:
         X = Variable(torch.FloatTensor(x))
         G = Variable(torch.FloatTensor(desired_object_change))
 
-        mahalanobis = self.expected_distance(X, G).data[0] / 0.02
+        mahalanobis = self.expected_distance(X, G).data[0] / 0.05
 
         response = FeasibilityResponse()
         response.mahalanobis = mahalanobis
@@ -339,16 +342,16 @@ if __name__ == '__main__':
     from oracle_pb2 import FeasibilityRequest
     oracle = Feasibility()
     request = FeasibilityRequest()
-    request.robot_x = 0.00
-    request.robot_y = 0.00
+    request.robot_x = 0.4
+    request.robot_y = 0.3
     request.robot_radians = 0.0
 
-    request.object_x = 0.2
-    request.object_y = 0.0
+    request.object_x = 0.8
+    request.object_y = 0.3
     request.object_radians = 0.0
 
-    request.object_x_prime = 0.3
-    request.object_y_prime = 0.0
+    request.object_x_prime = 0.9
+    request.object_y_prime = 0.3
     request.object_radians_prime = 0.0
 
     request.object_mass = 0.073
@@ -358,9 +361,16 @@ if __name__ == '__main__':
     request.object_height = 0.13
 
     from datetime import datetime
-    n_steps = 100
+    n_steps = 1
     mcmc_time = 0.0
     gan_time = 0.0
-    for step in range(n_steps + 1):
-        print(oracle.sample_old(request))
-        print(oracle.sample(request))
+    print('object rotation:', request.object_radians)
+    print(oracle.mahalanobis(request))
+
+    request.object_radians = 1.0
+    print('object rotation:', request.object_radians)
+    print(oracle.mahalanobis(request))
+
+    request.object_radians = -1.0
+    print('object rotation:', request.object_radians)
+    print(oracle.mahalanobis(request))
