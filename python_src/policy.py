@@ -16,9 +16,8 @@ class Normalization(torch.nn.Module):
         return (x - Variable(self.mean)) / Variable(self.std)
 
 
-
 class Policy(torch.nn.Module):
-    def __init__(self, x_size, g_size, hidden_size=64):
+    def __init__(self, x_size, g_size, u_size, hidden_size=64):
         super(Policy, self).__init__()
         self.fc1 = torch.nn.Linear(x_size + g_size, hidden_size)
         self.fc2 = torch.nn.Linear(hidden_size, hidden_size)
@@ -52,17 +51,17 @@ class Policy(torch.nn.Module):
                 Variable(self.xy_vel_scale) * u_xy_vel * u_xy_dir / u_xy_dir.norm(dim=1, keepdim=True),
                 Variable(self.r_vel_scale) * u_r_vel,
                 Variable(self.dur_scale) * u_dur,
-                ],
+            ],
             dim=1
         )
 
 
 class ProductionPolicy(torch.nn.Module):
-    def __init__(self, x_size, g_size):
+    def __init__(self, x_size, g_size, u_size):
         super(ProductionPolicy, self).__init__()
         self.norm_x = Normalization(x_size)
         self.norm_y = Normalization(g_size)
-        self.policy = Policy(x_size, g_size)
+        self.policy = Policy(x_size, g_size, u_size)
 
     def forward(self, x, g):
         return self.policy(self.norm_x(x), self.norm_y(g))

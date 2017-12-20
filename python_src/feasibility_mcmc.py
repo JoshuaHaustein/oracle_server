@@ -7,20 +7,28 @@ from torch.autograd import Variable
 
 
 class RewardFCPlain(torch.nn.Module):
-    def __init__(self, x_size, u_size, y_size, hidden_units=64):
+    def __init__(self, x_size, u_size, y_size, hidden_units=256):
         super(RewardFCPlain, self).__init__()
 
-        self.fc1 = torch.nn.Linear(x_size + u_size, hidden_units)
-        self.bn1 = torch.nn.BatchNorm1d(hidden_units)
-        self.fc2 = torch.nn.Linear(hidden_units, hidden_units)
-        self.bn2 = torch.nn.BatchNorm1d(hidden_units)
-        self.fcy = torch.nn.Linear(hidden_units, y_size)  # E[Y]
+        self.sequential = torch.nn.Sequential(
+            torch.nn.Linear(x_size + u_size, hidden_units),
+            torch.nn.BatchNorm1d(hidden_units),
+            torch.nn.LeakyReLU(),
+            torch.nn.Linear(hidden_units, hidden_units),
+            torch.nn.BatchNorm1d(hidden_units),
+            torch.nn.LeakyReLU(),
+            torch.nn.Linear(hidden_units, hidden_units),
+            torch.nn.BatchNorm1d(hidden_units),
+            torch.nn.LeakyReLU(),
+            torch.nn.Linear(hidden_units, hidden_units),
+            torch.nn.BatchNorm1d(hidden_units),
+            torch.nn.LeakyReLU(),
+            torch.nn.Linear(hidden_units, y_size)  # E[Y]
+        )
 
     def forward(self, x, u):
         xu = torch.cat([x, u], dim=1)
-        a1 = F.relu(self.bn1(self.fc1(xu)))
-        a2 = F.relu(self.bn2(self.fc2(a1)))
-        y = self.fcy(a2)  # E(Y)
+        y = self.sequential(xu)  # E(Y)
         # Var(Y) = E(Y^2) - E(Y)^2
         # E(Y^2) = Var(Y) + E(Y)^2
         # y2 = F.softplus(self.fcy2(a2)) + y ** 2 # E(Y^2)
@@ -29,20 +37,29 @@ class RewardFCPlain(torch.nn.Module):
 
 
 class FCPositive(torch.nn.Module):
-    def __init__(self, x_size, u_size, y_size, hidden_units=64):
+    def __init__(self, x_size, u_size, y_size, hidden_units=256):
         super(FCPositive, self).__init__()
 
-        self.fc1 = torch.nn.Linear(x_size + u_size, hidden_units)
-        self.bn1 = torch.nn.BatchNorm1d(hidden_units)
-        self.fc2 = torch.nn.Linear(hidden_units, hidden_units)
-        self.bn2 = torch.nn.BatchNorm1d(hidden_units)
-        self.fcy = torch.nn.Linear(hidden_units, y_size)  # E[Y]
+        self.sequential = torch.nn.Sequential(
+            torch.nn.Linear(x_size + u_size, hidden_units),
+            torch.nn.BatchNorm1d(hidden_units),
+            torch.nn.LeakyReLU(),
+            torch.nn.Linear(hidden_units, hidden_units),
+            torch.nn.BatchNorm1d(hidden_units),
+            torch.nn.LeakyReLU(),
+            torch.nn.Linear(hidden_units, hidden_units),
+            torch.nn.BatchNorm1d(hidden_units),
+            torch.nn.LeakyReLU(),
+            torch.nn.Linear(hidden_units, hidden_units),
+            torch.nn.BatchNorm1d(hidden_units),
+            torch.nn.LeakyReLU(),
+            torch.nn.Linear(hidden_units, y_size),
+            torch.nn.Softplus()
+        )
 
     def forward(self, x, u):
         xu = torch.cat([x, u], dim=1)
-        a1 = F.relu(self.bn1(self.fc1(xu)))
-        a2 = F.relu(self.bn2(self.fc2(a1)))
-        y = F.softplus(self.fcy(a2))
+        y = self.sequential(xu)
         return y
 
 
@@ -60,10 +77,10 @@ class ExpectedDistanceProduction(torch.nn.Module):
     def __init__(self, policy, mean_model=None, variance_model=None, x_norm=None, u_norm=None, y_norm=None):
         super(ExpectedDistanceProduction, self).__init__()
         from policy import Policy
-        self.policy = Policy(5, 3)
-        self.mean = RewardFCPlain(5, 4, 3)
-        self.variance = FCPositive(5, 4, 3)
-        self.x_norm = Normalization(5)
+        self.policy = Policy(7, 3, 4)
+        self.mean = RewardFCPlain(7, 4, 3)
+        self.variance = FCPositive(7, 4, 3)
+        self.x_norm = Normalization(7)
         self.u_norm = Normalization(4)
         self.g_norm = Normalization(3)
         self.register_buffer(
@@ -73,7 +90,9 @@ class ExpectedDistanceProduction(torch.nn.Module):
 
     def forward(self, x, g):
         """
+        Variables should all be normalized!
         Goal is relative object! G_rel = (G - X)
+        Goal is normalized with same as Y = (X' - X)
         """
         x = self.x_norm(x)
         g = self.g_norm(g)

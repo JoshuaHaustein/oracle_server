@@ -172,7 +172,7 @@ class Feasibility:
             self.norm_inv
         ) = load_models('saved_models/feasibility_models.pkl')
 
-        self.policy = ProductionPolicy(x_size=5, g_size=3)
+        self.policy = ProductionPolicy(x_size=7, g_size=3, u_size=4)
         with open('saved_models/production_policy.pkl', 'rb') as f:
             self.policy.load_state_dict(pickle.load(f))
         self.policy.eval()
@@ -187,6 +187,7 @@ class Feasibility:
         self.generator = GeneratorProduction()
         with open('saved_models/generator_production.pkl', 'rb') as f:
             self.generator.load_state_dict(pickle.load(f))
+        self.generator.eval()
 
         # For mahalanobis, the queried robot state needs normalizing
         self.y_norm = Normalization(4)
@@ -214,6 +215,8 @@ class Feasibility:
         dθ = request.object_radians_prime - request.object_radians
         obj = Variable(torch.FloatTensor([[request.object_width,
                                            request.object_height,
+                                           request.object_mass,
+                                           request.object_friction,
                                            request.object_x,
                                            request.object_y,
                                            request.object_radians]]))
@@ -230,22 +233,6 @@ class Feasibility:
         response.robot_radians = θ
         return response
 
-    def sample_old(self, request):
-        dx = request.object_x_prime - request.object_x
-        dy = request.object_y_prime - request.object_y
-        dθ = 0.0
-        from feasibility_mcmc import mcmc
-        for i, (rx, ry, rθ, u) in enumerate(mcmc(request.object_radians, dx, dy, dθ, request.object_width, request.object_height, self.expected_distance)):
-            if i > 2:
-                break
-
-        response = FeasibilityResponse()
-        response.mahalanobis = -1.0 # Not valid here
-        response.robot_x = request.object_x + rx
-        response.robot_y = request.object_y + ry
-        response.robot_radians = rθ
-        return response
-
     def mahalanobis(self, request):
         robot_pose = np.array([[request.robot_x, request.robot_y, request.robot_radians]]).T
         object_pose = np.array([[request.object_x, request.object_y, request.object_radians]]).T
@@ -253,7 +240,7 @@ class Feasibility:
         x = np.concatenate(
             [
                 robot_centric(robot_pose, object_pose, translate=True).T,
-                [[request.object_width, request.object_height]]
+                [[request.object_width, request.object_height, request.object_mass, request.object_friction]]
             ],
             axis=1
         )
@@ -265,7 +252,11 @@ class Feasibility:
         X = Variable(torch.FloatTensor(x))
         G = Variable(torch.FloatTensor(desired_object_change))
 
-        mahalanobis = self.expected_distance(X, G).data[0] / 0.05
+        expected_distance = self.expected_distance(X, G).data[0]
+        # The mass scaling is used to counter increased variance in lower mass objects
+        # The increased variance leads to oracle never want to push (lighter objects)
+        mass_scaling = request.object_mass / 0.5
+        mahalanobis = mass_scaling * expected_distance / 0.01
 
         response = FeasibilityResponse()
         response.mahalanobis = mahalanobis
@@ -278,23 +269,23 @@ class Feasibility:
 class Oracle:
 
     def __init__(self):
-        self.model = ProductionPolicy(x_size=5, g_size=3)
+        self.model = ProductionPolicy(x_size=7, g_size=3, u_size=4)
         with open('saved_models/production_policy.pkl', 'rb') as f:
             self.model.load_state_dict(pickle.load(f))
 
-    def sample(self, action_request):
-        robot_pose = np.array([[action_request.robot_x, action_request.robot_y, action_request.robot_radians]]).T
-        object_pose = np.array([[action_request.object_x, action_request.object_y, action_request.object_radians]]).T
+    def sample(self, request):
+        robot_pose = np.array([[request.robot_x, request.robot_y, request.robot_radians]]).T
+        object_pose = np.array([[request.object_x, request.object_y, request.object_radians]]).T
         object_relative_robot = robot_centric(robot_pose, object_pose, translate=True).T
         x = np.concatenate(
             [
                 robot_centric(robot_pose, object_pose, translate=True).T,
-                [[action_request.object_width, action_request.object_height]]
+                [[request.object_width, request.object_height, request.object_mass, request.object_friction]]
             ],
             axis=1
         )
         goal_pose = np.array([
-            [action_request.object_x_prime, action_request.object_y_prime, action_request.object_radians_prime]
+            [request.object_x_prime, request.object_y_prime, request.object_radians_prime]
         ]).T
         goal_relative_robot = robot_centric(robot_pose, goal_pose, translate=True).T
         desired_object_change = goal_relative_robot - object_relative_robot
@@ -343,15 +334,15 @@ if __name__ == '__main__':
     oracle = Feasibility()
     request = FeasibilityRequest()
     request.robot_x = 0.4
-    request.robot_y = 0.3
+    request.robot_y = 0.0
     request.robot_radians = 0.0
 
-    request.object_x = 0.8
-    request.object_y = 0.3
+    request.object_x = 0.4
+    request.object_y = 0.0
     request.object_radians = 0.0
 
-    request.object_x_prime = 0.9
-    request.object_y_prime = 0.3
+    request.object_x_prime = 0.54
+    request.object_y_prime = 0.0
     request.object_radians_prime = 0.0
 
     request.object_mass = 0.073
@@ -361,16 +352,13 @@ if __name__ == '__main__':
     request.object_height = 0.13
 
     from datetime import datetime
-    n_steps = 1
+    n_steps = 10
     mcmc_time = 0.0
     gan_time = 0.0
-    print('object rotation:', request.object_radians)
-    print(oracle.mahalanobis(request))
 
-    request.object_radians = 1.0
-    print('object rotation:', request.object_radians)
-    print(oracle.mahalanobis(request))
-
-    request.object_radians = -1.0
-    print('object rotation:', request.object_radians)
-    print(oracle.mahalanobis(request))
+    for n in range(n_steps):
+        start = datetime.now()
+        print(oracle.mahalanobis(request))
+        end = datetime.now()
+        gan_time += (end - start).microseconds / n_steps
+    print(gan_time / 1e6)
