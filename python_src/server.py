@@ -39,8 +39,8 @@ def oracle_loop():
         while True:
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
-                start = time.clock()
                 request = ActionRequest.FromString(data)
+                start = time.clock()
                 response = oracle.sample(request)
                 if len(data) == 0:
                     break
@@ -67,8 +67,8 @@ def feasibility_loop():
         while True:
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
-                start = time.clock()
                 request = ActionRequest.FromString(data)
+                start = time.clock()
                 response = feasibility.mahalanobis(request)
                 if len(data) == 0:
                     break
@@ -95,8 +95,8 @@ def feasibility_sample_loop():
         while True:
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
-                start = time.clock()
                 request = FeasibilityRequest.FromString(data)
+                start = time.clock()
                 response = feasibility.sample(request)
                 if len(data) == 0:
                     break
@@ -123,8 +123,8 @@ def pushability_loop():
         while True:
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
-                start = time.clock()
                 request = PushabilityRequest.FromString(data)
+                start = time.clock()
                 response = pushability.mahalanobis(request)
                 if len(data) == 0:
                     break
@@ -151,8 +151,8 @@ def pushability_projection_loop():
         while True:
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
-                start = time.clock()
                 request = PushabilityRequest.FromString(data)
+                start = time.clock()
                 response = pushability.projection(request)
                 if len(data) == 0:
                     break
