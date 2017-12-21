@@ -39,11 +39,14 @@ def oracle_loop():
         while True:
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
-                ar = ActionRequest.FromString(data)
-                response = oracle.sample(ar)
+                start = time.clock()
+                request = ActionRequest.FromString(data)
+                response = oracle.sample(request)
                 if len(data) == 0:
                     break
                 pass
+            end = time.clock()
+            response.cpu_time = end - start
             with open(response_path, 'wb') as response_pipe:
                 response_pipe.write(response.SerializeToString())
     except KeyboardInterrupt:
@@ -64,11 +67,14 @@ def feasibility_loop():
         while True:
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
-                ar = ActionRequest.FromString(data)
-                response = feasibility.mahalanobis(ar)
+                start = time.clock()
+                request = ActionRequest.FromString(data)
+                response = feasibility.mahalanobis(request)
                 if len(data) == 0:
                     break
                 pass
+            end = time.clock()
+            response.cpu_time = end - start
             with open(response_path, 'wb') as response_pipe:
                 response_pipe.write(response.SerializeToString())
     except KeyboardInterrupt:
@@ -89,11 +95,14 @@ def feasibility_sample_loop():
         while True:
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
+                start = time.clock()
                 request = FeasibilityRequest.FromString(data)
                 response = feasibility.sample(request)
                 if len(data) == 0:
                     break
                 pass
+            end = time.clock()
+            response.cpu_time = end - start
             with open(response_path, 'wb') as response_pipe:
                 response_pipe.write(response.SerializeToString())
     except KeyboardInterrupt:
@@ -114,11 +123,14 @@ def pushability_loop():
         while True:
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
+                start = time.clock()
                 request = PushabilityRequest.FromString(data)
                 response = pushability.mahalanobis(request)
                 if len(data) == 0:
                     break
                 pass
+            end = time.clock()
+            response.cpu_time = end - start
             with open(response_path, 'wb') as response_pipe:
                 response_pipe.write(response.SerializeToString())
     except KeyboardInterrupt:
@@ -139,11 +151,14 @@ def pushability_projection_loop():
         while True:
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
+                start = time.clock()
                 request = PushabilityRequest.FromString(data)
                 response = pushability.projection(request)
                 if len(data) == 0:
                     break
                 pass
+            end = time.clock()
+            response.cpu_time = end - start
             with open(response_path, 'wb') as response_pipe:
                 response_pipe.write(response.SerializeToString())
     except KeyboardInterrupt:

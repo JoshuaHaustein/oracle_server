@@ -18,7 +18,7 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='oracle.proto',
   package='oracle_communication',
-  serialized_pb=_b('\n\x0coracle.proto\x12\x14oracle_communication\"\xd0\x02\n\rActionRequest\x12\x0f\n\x07robot_x\x18\x01 \x02(\x02\x12\x0f\n\x07robot_y\x18\x02 \x02(\x02\x12\x15\n\rrobot_radians\x18\x03 \x02(\x02\x12\x10\n\x08object_x\x18\x04 \x02(\x02\x12\x10\n\x08object_y\x18\x05 \x02(\x02\x12\x16\n\x0eobject_radians\x18\x06 \x02(\x02\x12\x16\n\x0eobject_x_prime\x18\x07 \x02(\x02\x12\x16\n\x0eobject_y_prime\x18\x08 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\t \x02(\x02\x12\x13\n\x0bobject_mass\x18\n \x02(\x02\x12!\n\x19object_rotational_inertia\x18\x0b \x02(\x02\x12\x17\n\x0fobject_friction\x18\x0c \x02(\x02\x12\x14\n\x0cobject_width\x18\r \x02(\x02\x12\x15\n\robject_height\x18\x0e \x02(\x02\"?\n\x0e\x41\x63tionResponse\x12\n\n\x02\x64x\x18\x01 \x02(\x02\x12\n\n\x02\x64y\x18\x02 \x02(\x02\x12\n\n\x02\x64r\x18\x03 \x02(\x02\x12\t\n\x01t\x18\x04 \x02(\x02\"\xd5\x02\n\x12\x46\x65\x61sibilityRequest\x12\x0f\n\x07robot_x\x18\x01 \x02(\x02\x12\x0f\n\x07robot_y\x18\x02 \x02(\x02\x12\x15\n\rrobot_radians\x18\x03 \x02(\x02\x12\x10\n\x08object_x\x18\x04 \x02(\x02\x12\x10\n\x08object_y\x18\x05 \x02(\x02\x12\x16\n\x0eobject_radians\x18\x06 \x02(\x02\x12\x16\n\x0eobject_x_prime\x18\x07 \x02(\x02\x12\x16\n\x0eobject_y_prime\x18\x08 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\t \x02(\x02\x12\x13\n\x0bobject_mass\x18\n \x02(\x02\x12!\n\x19object_rotational_inertia\x18\x0b \x02(\x02\x12\x17\n\x0fobject_friction\x18\x0c \x02(\x02\x12\x14\n\x0cobject_width\x18\r \x02(\x02\x12\x15\n\robject_height\x18\x0e \x02(\x02\"c\n\x13\x46\x65\x61sibilityResponse\x12\x13\n\x0bmahalanobis\x18\x01 \x02(\x02\x12\x0f\n\x07robot_x\x18\x02 \x02(\x02\x12\x0f\n\x07robot_y\x18\x03 \x02(\x02\x12\x15\n\rrobot_radians\x18\x04 \x02(\x02\"\xae\x02\n\x12PushabilityRequest\x12\x10\n\x08num_stds\x18\x01 \x02(\x02\x12\x10\n\x08object_x\x18\x04 \x02(\x02\x12\x10\n\x08object_y\x18\x05 \x02(\x02\x12\x16\n\x0eobject_radians\x18\x06 \x02(\x02\x12\x16\n\x0eobject_x_prime\x18\x07 \x02(\x02\x12\x16\n\x0eobject_y_prime\x18\x08 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\t \x02(\x02\x12\x13\n\x0bobject_mass\x18\n \x02(\x02\x12!\n\x19object_rotational_inertia\x18\x0b \x02(\x02\x12\x17\n\x0fobject_friction\x18\x0c \x02(\x02\x12\x14\n\x0cobject_width\x18\r \x02(\x02\x12\x15\n\robject_height\x18\x0e \x02(\x02\"\x84\x01\n\x13PushabilityResponse\x12\x13\n\x0bmahalanobis\x18\x01 \x02(\x02\x12\x1a\n\x12projected_object_x\x18\x04 \x02(\x02\x12\x1a\n\x12projected_object_y\x18\x05 \x02(\x02\x12 \n\x18projected_object_radians\x18\x06 \x02(\x02')
+  serialized_pb=_b('\n\x0coracle.proto\x12\x14oracle_communication\"\xd0\x02\n\rActionRequest\x12\x0f\n\x07robot_x\x18\x01 \x02(\x02\x12\x0f\n\x07robot_y\x18\x02 \x02(\x02\x12\x15\n\rrobot_radians\x18\x03 \x02(\x02\x12\x10\n\x08object_x\x18\x04 \x02(\x02\x12\x10\n\x08object_y\x18\x05 \x02(\x02\x12\x16\n\x0eobject_radians\x18\x06 \x02(\x02\x12\x16\n\x0eobject_x_prime\x18\x07 \x02(\x02\x12\x16\n\x0eobject_y_prime\x18\x08 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\t \x02(\x02\x12\x13\n\x0bobject_mass\x18\n \x02(\x02\x12!\n\x19object_rotational_inertia\x18\x0b \x02(\x02\x12\x17\n\x0fobject_friction\x18\x0c \x02(\x02\x12\x14\n\x0cobject_width\x18\r \x02(\x02\x12\x15\n\robject_height\x18\x0e \x02(\x02\"Q\n\x0e\x41\x63tionResponse\x12\n\n\x02\x64x\x18\x01 \x02(\x02\x12\n\n\x02\x64y\x18\x02 \x02(\x02\x12\n\n\x02\x64r\x18\x03 \x02(\x02\x12\t\n\x01t\x18\x04 \x02(\x02\x12\x10\n\x08\x63pu_time\x18\x05 \x02(\x02\"\xd5\x02\n\x12\x46\x65\x61sibilityRequest\x12\x0f\n\x07robot_x\x18\x01 \x02(\x02\x12\x0f\n\x07robot_y\x18\x02 \x02(\x02\x12\x15\n\rrobot_radians\x18\x03 \x02(\x02\x12\x10\n\x08object_x\x18\x04 \x02(\x02\x12\x10\n\x08object_y\x18\x05 \x02(\x02\x12\x16\n\x0eobject_radians\x18\x06 \x02(\x02\x12\x16\n\x0eobject_x_prime\x18\x07 \x02(\x02\x12\x16\n\x0eobject_y_prime\x18\x08 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\t \x02(\x02\x12\x13\n\x0bobject_mass\x18\n \x02(\x02\x12!\n\x19object_rotational_inertia\x18\x0b \x02(\x02\x12\x17\n\x0fobject_friction\x18\x0c \x02(\x02\x12\x14\n\x0cobject_width\x18\r \x02(\x02\x12\x15\n\robject_height\x18\x0e \x02(\x02\"u\n\x13\x46\x65\x61sibilityResponse\x12\x13\n\x0bmahalanobis\x18\x01 \x02(\x02\x12\x0f\n\x07robot_x\x18\x02 \x02(\x02\x12\x0f\n\x07robot_y\x18\x03 \x02(\x02\x12\x15\n\rrobot_radians\x18\x04 \x02(\x02\x12\x10\n\x08\x63pu_time\x18\x05 \x02(\x02\"\xae\x02\n\x12PushabilityRequest\x12\x10\n\x08num_stds\x18\x01 \x02(\x02\x12\x10\n\x08object_x\x18\x04 \x02(\x02\x12\x10\n\x08object_y\x18\x05 \x02(\x02\x12\x16\n\x0eobject_radians\x18\x06 \x02(\x02\x12\x16\n\x0eobject_x_prime\x18\x07 \x02(\x02\x12\x16\n\x0eobject_y_prime\x18\x08 \x02(\x02\x12\x1c\n\x14object_radians_prime\x18\t \x02(\x02\x12\x13\n\x0bobject_mass\x18\n \x02(\x02\x12!\n\x19object_rotational_inertia\x18\x0b \x02(\x02\x12\x17\n\x0fobject_friction\x18\x0c \x02(\x02\x12\x14\n\x0cobject_width\x18\r \x02(\x02\x12\x15\n\robject_height\x18\x0e \x02(\x02\"\x96\x01\n\x13PushabilityResponse\x12\x13\n\x0bmahalanobis\x18\x01 \x02(\x02\x12\x1a\n\x12projected_object_x\x18\x02 \x02(\x02\x12\x1a\n\x12projected_object_y\x18\x03 \x02(\x02\x12 \n\x18projected_object_radians\x18\x04 \x02(\x02\x12\x10\n\x08\x63pu_time\x18\x05 \x02(\x02')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -181,6 +181,13 @@ _ACTIONRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='cpu_time', full_name='oracle_communication.ActionResponse.cpu_time', index=4,
+      number=5, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -193,7 +200,7 @@ _ACTIONRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=377,
-  serialized_end=440,
+  serialized_end=458,
 )
 
 
@@ -313,8 +320,8 @@ _FEASIBILITYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=443,
-  serialized_end=784,
+  serialized_start=461,
+  serialized_end=802,
 )
 
 
@@ -353,6 +360,13 @@ _FEASIBILITYRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='cpu_time', full_name='oracle_communication.FeasibilityResponse.cpu_time', index=4,
+      number=5, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -364,8 +378,8 @@ _FEASIBILITYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=786,
-  serialized_end=885,
+  serialized_start=804,
+  serialized_end=921,
 )
 
 
@@ -471,8 +485,8 @@ _PUSHABILITYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=888,
-  serialized_end=1190,
+  serialized_start=924,
+  serialized_end=1226,
 )
 
 
@@ -492,21 +506,28 @@ _PUSHABILITYRESPONSE = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='projected_object_x', full_name='oracle_communication.PushabilityResponse.projected_object_x', index=1,
-      number=4, type=2, cpp_type=6, label=2,
+      number=2, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='projected_object_y', full_name='oracle_communication.PushabilityResponse.projected_object_y', index=2,
-      number=5, type=2, cpp_type=6, label=2,
+      number=3, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
       name='projected_object_radians', full_name='oracle_communication.PushabilityResponse.projected_object_radians', index=3,
-      number=6, type=2, cpp_type=6, label=2,
+      number=4, type=2, cpp_type=6, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='cpu_time', full_name='oracle_communication.PushabilityResponse.cpu_time', index=4,
+      number=5, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -522,8 +543,8 @@ _PUSHABILITYRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1193,
-  serialized_end=1325,
+  serialized_start=1229,
+  serialized_end=1379,
 )
 
 DESCRIPTOR.message_types_by_name['ActionRequest'] = _ACTIONREQUEST
