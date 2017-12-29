@@ -40,12 +40,12 @@ def oracle_loop():
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
                 request = ActionRequest.FromString(data)
-                start = time.process_time()
+                start = time.perf_counter()
                 response = oracle.sample(request)
                 if len(data) == 0:
                     break
                 pass
-            end = time.process_time()
+            end = time.perf_counter()
             response.cpu_time = end - start
             with open(response_path, 'wb') as response_pipe:
                 response_pipe.write(response.SerializeToString())
@@ -68,12 +68,12 @@ def feasibility_loop():
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
                 request = ActionRequest.FromString(data)
-                start = time.process_time()
+                start = time.perf_counter()
                 response = feasibility.mahalanobis(request)
                 if len(data) == 0:
                     break
                 pass
-            end = time.process_time()
+            end = time.perf_counter()
             response.cpu_time = end - start
             with open(response_path, 'wb') as response_pipe:
                 response_pipe.write(response.SerializeToString())
@@ -96,12 +96,12 @@ def feasibility_sample_loop():
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
                 request = FeasibilityRequest.FromString(data)
-                start = time.process_time()
+                start = time.perf_counter()
                 response = feasibility.sample(request)
                 if len(data) == 0:
                     break
                 pass
-            end = time.process_time()
+            end = time.perf_counter()
             response.cpu_time = end - start
             with open(response_path, 'wb') as response_pipe:
                 response_pipe.write(response.SerializeToString())
@@ -124,12 +124,12 @@ def pushability_loop():
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
                 request = PushabilityRequest.FromString(data)
-                start = time.process_time()
+                start = time.perf_counter()
                 response = pushability.mahalanobis(request)
                 if len(data) == 0:
                     break
                 pass
-            end = time.process_time()
+            end = time.perf_counter()
             response.cpu_time = end - start
             with open(response_path, 'wb') as response_pipe:
                 response_pipe.write(response.SerializeToString())
@@ -152,12 +152,12 @@ def pushability_projection_loop():
             with open(request_path, 'rb') as request_pipe:
                 data = request_pipe.read(message_size)
                 request = PushabilityRequest.FromString(data)
-                start = time.process_time()
+                start = time.perf_counter()
                 response = pushability.projection(request)
                 if len(data) == 0:
                     break
                 pass
-            end = time.process_time()
+            end = time.perf_counter()
             response.cpu_time = end - start
             with open(response_path, 'wb') as response_pipe:
                 response_pipe.write(response.SerializeToString())
