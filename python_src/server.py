@@ -168,11 +168,5 @@ def pushability_projection_loop():
 if __name__ == '__main__':
     oracle_proc = Process(target=oracle_loop)
     oracle_proc.start()
-    pushability_proc = Process(target=pushability_loop)
-    pushability_proc.start()
-    pushability_projection_proc = Process(target=pushability_projection_loop)
-    pushability_projection_proc.start()
-    feasibility_proc = Process(target=feasibility_loop)
-    feasibility_proc.start()
     feasibility_sample_proc = Process(target=feasibility_sample_loop)
     feasibility_sample_proc.start()
