@@ -165,49 +165,11 @@ class Pushability:
 class Feasibility:
 
     def __init__(self):
-        (
-            self.mean,
-            self.std,
-            self.norm,
-            self.norm_inv
-        ) = load_models('saved_models/feasibility_models.pkl')
-
-        self.policy = ProductionPolicy(x_size=7, g_size=3, u_size=4)
-        with open('saved_models/production_policy.pkl', 'rb') as f:
-            self.policy.load_state_dict(pickle.load(f))
-        self.policy.eval()
-
-        from feasibility_mcmc import ExpectedDistanceProduction
-        self.expected_distance = ExpectedDistanceProduction(self.policy)
-        with open('saved_models/expected_distance.pkl', 'rb') as f:
-            self.expected_distance.load_state_dict(pickle.load(f))
-        self.expected_distance.eval()
-
         from feasibility_gan import GeneratorProduction
         self.generator = GeneratorProduction()
         with open('saved_models/generator_production.pkl', 'rb') as f:
             self.generator.load_state_dict(pickle.load(f))
         self.generator.eval()
-
-        # For mahalanobis, the queried robot state needs normalizing
-        self.y_norm = Normalization(4)
-        self.y_norm.load_state_dict(self.norm_inv.state_dict())
-
-    def sample_old(self, request):
-        dx = request.object_x_prime - request.object_x
-        dy = request.object_y_prime - request.object_y
-        dθ = 0.0
-        from feasibility_mcmc import mcmc
-        for i, (rx, ry, rθ, u) in enumerate(mcmc(request.object_radians, dx, dy, dθ, request.object_width, request.object_height, self.expected_distance)):
-            if i > 2:
-                break
-
-        response = FeasibilityResponse()
-        response.mahalanobis = -1.0 # Not valid here
-        response.robot_x = request.object_x + rx
-        response.robot_y = request.object_y + ry
-        response.robot_radians = rθ
-        return response
 
     def sample(self, request):
         dx = request.object_x_prime - request.object_x
@@ -231,38 +193,6 @@ class Feasibility:
         response.robot_x = x
         response.robot_y = y
         response.robot_radians = θ
-        return response
-
-    def mahalanobis(self, request):
-        robot_pose = np.array([[request.robot_x, request.robot_y, request.robot_radians]]).T
-        object_pose = np.array([[request.object_x, request.object_y, request.object_radians]]).T
-        object_relative_robot = robot_centric(robot_pose, object_pose, translate=True).T
-        x = np.concatenate(
-            [
-                robot_centric(robot_pose, object_pose, translate=True).T,
-                [[request.object_width, request.object_height, request.object_mass, request.object_friction]]
-            ],
-            axis=1
-        )
-        goal_pose = np.array([
-            [request.object_x_prime, request.object_y_prime, request.object_radians_prime]
-        ]).T
-        goal_relative_robot = robot_centric(robot_pose, goal_pose, translate=True).T
-        desired_object_change = goal_relative_robot - object_relative_robot
-        X = Variable(torch.FloatTensor(x))
-        G = Variable(torch.FloatTensor(desired_object_change))
-
-        expected_distance = self.expected_distance(X, G).data[0]
-        # The mass scaling is used to counter increased variance in lower mass objects
-        # The increased variance leads to oracle never want to push (lighter objects)
-        mass_scaling = request.object_mass / 0.5
-        mahalanobis = mass_scaling * expected_distance / 0.01
-
-        response = FeasibilityResponse()
-        response.mahalanobis = mahalanobis
-        response.robot_x = 0.0          # Ignored
-        response.robot_y = 0.0          #  -"-
-        response.robot_radians = 0.0    #  -"-
         return response
 
 
@@ -358,7 +288,7 @@ if __name__ == '__main__':
 
     for n in range(n_steps):
         start = datetime.now()
-        print(oracle.mahalanobis(request))
+        print(oracle.sample(request))
         end = datetime.now()
         gan_time += (end - start).microseconds / n_steps
     print(gan_time / 1e6)
