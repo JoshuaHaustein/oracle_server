@@ -199,17 +199,20 @@ class Feasibility:
 class Oracle:
 
     def __init__(self):
-        self.model = ProductionPolicy(x_size=7, g_size=3, u_size=4)
+        self.model = ProductionPolicy(x_size=7, g_size=4, u_size=4)
         with open('saved_models/production_policy.pkl', 'rb') as f:
             self.model.load_state_dict(pickle.load(f))
 
     def sample(self, request):
+        # Oracle input arguments:
+        # X = (obj_x, obj_y, obj_θ, w, h, m, µ)
+        # G = (obj_xd, obj_yd, cos(obj_θd), sin(obj_θd))
         robot_pose = np.array([[request.robot_x, request.robot_y, request.robot_radians]]).T
         object_pose = np.array([[request.object_x, request.object_y, request.object_radians]]).T
         object_relative_robot = robot_centric(robot_pose, object_pose, translate=True).T
         x = np.concatenate(
             [
-                robot_centric(robot_pose, object_pose, translate=True).T,
+                object_relative_robot,
                 [[request.object_width, request.object_height, request.object_mass, request.object_friction]]
             ],
             axis=1
@@ -218,9 +221,12 @@ class Oracle:
             [request.object_x_prime, request.object_y_prime, request.object_radians_prime]
         ]).T
         goal_relative_robot = robot_centric(robot_pose, goal_pose, translate=True).T
-        desired_object_change = goal_relative_robot - object_relative_robot
         X = Variable(torch.FloatTensor(x))
-        G = Variable(torch.FloatTensor(desired_object_change))
+        g = np.array([[
+            goal_relative_robot[0, 0], goal_relative_robot[0, 1],
+            np.cos(goal_relative_robot[0, 2]), np.sin(goal_relative_robot[0, 2])
+        ]])
+        G = Variable(torch.FloatTensor(g))
 
         u = self.model(X, G).data.numpy().T
         action_response = ActionResponse()
@@ -263,7 +269,7 @@ if __name__ == '__main__':
     from oracle_pb2 import FeasibilityRequest
     oracle = Feasibility()
     request = FeasibilityRequest()
-    request.robot_x = 0.4
+    request.robot_x = 0.5
     request.robot_y = 0.0
     request.robot_radians = 0.0
 
@@ -271,7 +277,7 @@ if __name__ == '__main__':
     request.object_y = 0.0
     request.object_radians = 0.0
 
-    request.object_x_prime = 0.54
+    request.object_x_prime = 0.5
     request.object_y_prime = 0.0
     request.object_radians_prime = 0.0
 
@@ -288,7 +294,7 @@ if __name__ == '__main__':
 
     for n in range(n_steps):
         start = datetime.now()
-        print(oracle.sample(request))
+        print(oracle.sample(request).robot_x)
         end = datetime.now()
         gan_time += (end - start).microseconds / n_steps
     print(gan_time / 1e6)
