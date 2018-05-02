@@ -172,9 +172,6 @@ class Feasibility:
         self.generator.eval()
 
     def sample(self, request):
-        dx = request.object_x_prime - request.object_x
-        dy = request.object_y_prime - request.object_y
-        dθ = request.object_radians_prime - request.object_radians
         obj = Variable(torch.FloatTensor([[request.object_width,
                                            request.object_height,
                                            request.object_mass,
@@ -182,11 +179,11 @@ class Feasibility:
                                            request.object_x,
                                            request.object_y,
                                            request.object_radians]]))
-        obj_delta = Variable(torch.FloatTensor([[request.object_x_prime - request.object_x,
-                                                 request.object_y_prime - request.object_y,
-                                                 request.object_radians_prime - request.object_radians]]))
+        obj_ = Variable(torch.FloatTensor([[request.object_x_prime,
+                                            request.object_y_prime,
+                                            request.object_radians_prime]]))
 
-        x, y, θ = self.generator(obj, obj_delta).data.numpy().flatten()
+        x, y, θ = self.generator(obj, obj_).data.numpy().flatten()
 
         response = FeasibilityResponse()
         response.mahalanobis = -1.0 # Not valid here
